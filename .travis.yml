@@ -6,8 +6,16 @@ php:
   - 5.5
   - 5.6
 
+matrix:
+  exclude:
+    - php: 5.3
+      env: TYPO3_BRANCH=master
+    - php: 5.4
+      env: TYPO3_BRANCH=master
+
 env:
-  - DB=mysql
+  - TYPO3_BRANCH=master
+  - TYPO3_BRANCH=TYPO3_6-2
 
 notifications:
   email:
@@ -20,10 +28,11 @@ before_script:
   - sudo apt-get install parallel
   - composer self-update
   - cd ..
-  - cp enetcache/composer.json .
-  - composer --dev install
-  - mkdir -p uploads typo3temp typo3conf/ext
-  - mv enetcache typo3conf/ext
+  - git clone --single-branch --branch $TYPO3_BRANCH --depth 1 https://github.com/TYPO3/TYPO3.CMS.git typo3_core
+  - mv typo3_core/* .
+  - composer install
+  - mkdir -p typo3conf/ext
+  - mv enetcache typo3conf/ext/
 
 script:
   - >
@@ -33,9 +42,4 @@ script:
   - >
     echo;
     echo "Running php lint";
-    /bin/bash -c "
-        if ! find typo3conf/ext/enetcache/ -name \*.php | parallel --gnu 'php -l {}' > /tmp/errors 2>&1; then
-            grep -v \"No syntax errors detected in\" /tmp/errors;
-            exit 99;
-        fi
-    "
+    find typo3conf/ext/enetcache/ -name \*.php | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
