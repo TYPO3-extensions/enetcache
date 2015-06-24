@@ -22,31 +22,28 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
 /**
  * Scheduler task to delete cache entries by tag
  *
  * @author Markus Guenther <markus.guenther@e-netconsulting.com>
  */
-class tx_enetcache_task_DropTags extends tx_scheduler_Task {
+class tx_enetcache_task_DropTags extends AbstractTask {
+
 	/**
-	 * @var arary Tags to be dropped, feeded by additional fields provider
+	 * @var array Tags to be dropped, fed by additional fields provider
 	 */
 	public $tags = array();
 
 	/**
 	 * Method executed by scheduler
 	 *
-	 * @return void
+	 * @return boolean
 	 */
 	public function execute() {
-		t3lib_div::makeInstance('tx_enetcache')->drop($this->tags);
-
-		return(TRUE);
+		GeneralUtility::makeInstance('tx_enetcache')->drop($this->tags);
+		return TRUE;
 	}
-} // End of class
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/enetcache/tasks/class.tx_enetcache_task_droptags.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/enetcache/tasks/class.tx_enetcache_task_droptags.php']);
 }
-
-?>

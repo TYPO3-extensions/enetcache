@@ -24,12 +24,14 @@ namespace Enet\Enetcache\Tests\Unit;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
- * Test cases for class tx_enetcache_tcahandler
+ * Test case
  *
  * @author Michael Knabe <mk@e-netconsulting.de>
  */
-class TcaHandlerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class TcaHandlerTest extends UnitTestCase {
 
 	/**
 	 * Default set up mocks TYPO3_DB
@@ -161,4 +163,3 @@ class TcaHandlerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 }
-?>

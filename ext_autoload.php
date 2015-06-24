@@ -1,5 +1,5 @@
 <?php
-$extensionPath = t3lib_extMgm::extPath('enetcache');
+$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('enetcache');
 return array(
 	'tx_enetcache' => $extensionPath . 'Classes/class.tx_enetcache.php',
 	'tx_enetcache_hook' => $extensionPath . 'Classes/class.tx_enetcache_hook.php',
@@ -19,4 +19,3 @@ return array(
 	'tx_enetcache_extensionwrappers_wec_map_pi3' => $extensionPath . 'Classes/extensionwrappers/class.tx_enetcache_extensionwrappers_wec_map_pi3.php',
 	'tx_enetcache_utility_compatibility' => $extensionPath . 'Classes/Utility/Compatibility.php',
 );
-?>
